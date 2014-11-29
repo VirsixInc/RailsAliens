@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 
 public class ObjectPool : MonoBehaviour {
+
+	//ObjectPool should be used for objects that are spawned many times through out a level - projectiles or common enemies, squibs, etc, to converse performance power.
 	
-	public GameObject[] pooledGameObjects; //note: these objects must be set to inactive in inspector or elsewhere in order for this to function properly
-	public int[] numberOfProjectilesToCreate;
-	public List<GameObject>[] pool;
+	public GameObject[] pooledGameObjects; //note: these objects must be set to inactive in order for pool to function properly
+	public int[] numberOfObjectsToPool; //how many of each type of object you want pooled - set in the inspector
+	public List<GameObject>[] pool; //holds all of the lists of disabled objects
 	
 	
-	// Use this for initialization
 	void Awake () {
 		InstantiateObjects();
 	}
@@ -20,7 +21,7 @@ public class ObjectPool : MonoBehaviour {
 		for (int count = 0; count < pooledGameObjects.Length; count++) {			//however many gameobjects are getting pooled, make a list for each one
 			pool[count] = new List<GameObject>();									
 			
-			for (int num = 0; num < numberOfProjectilesToCreate[count]; num++){ 	//for however many objects of each type
+			for (int num = 0; num < numberOfObjectsToPool[count]; num++){ 			//for however many objects of each type
 				temp = (GameObject)Instantiate(pooledGameObjects[count]);			
 				temp.transform.parent = this.transform; 							//keeps hierarchy clean by putting pooled objs under component transform
 				pool[count].Add(temp);
@@ -30,8 +31,8 @@ public class ObjectPool : MonoBehaviour {
 	
 	public GameObject Activate(int id, Vector3 position, Quaternion rotation) {
 		for (int count = 0; count < pool[id].Count; count++) {
-			if(!pool[id][count].activeSelf){									//activates objects instead of instanciating them
-				pool[id][count].SetActive(true);
+			if(!pool[id][count].activeSelf){									
+				pool[id][count].SetActive(true);						//activates objects instead of instanciating them
 				pool[id][count].transform.position = position;
 				pool[id][count].transform.rotation = rotation;
 				pool[id][count].transform.parent = this.transform;
@@ -39,7 +40,7 @@ public class ObjectPool : MonoBehaviour {
 				return pool[id][count];
 			}
 		}
-		pool[id].Add((GameObject)Instantiate(pooledGameObjects[id])); //incase pool runs out
+		pool[id].Add((GameObject)Instantiate(pooledGameObjects[id])); //in case pool runs out add new objects
 		pool[id][pool[id].Count-1].transform.position = position;     //instantiate objects the regular way
 		pool[id][pool[id].Count-1].transform.rotation = rotation;	   //last resort but better than buffer running out
 		pool[id][pool[id].Count-1].transform.parent = this.transform;
