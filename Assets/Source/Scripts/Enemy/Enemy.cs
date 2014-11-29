@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour {
 	{
 		//play death animation
 		//disable game object when animation is finished
+		gameObject.SetActive (false); 
 	}
 
 	//when a player shoots and hits an enemy - this function is called
