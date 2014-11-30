@@ -4,25 +4,20 @@ using System.Collections;
 public class FirstPersonController : MonoBehaviour {
 
 	public float movementSpeed = 5.0f;
-	public float mouseSensitivity = 2.0f;
 	public float upDownRange = 60.0f;
 	public float verticalRotation = 0.0f;
-	// Use this for initialization
-	void Start () {
-		Screen.lockCursor = true;
-	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
-		//rotation
-		float rotLeftRight = Input.GetAxis ("Mouse X") * mouseSensitivity; //retrieve lateral mouse movement
-		transform.Rotate (0, rotLeftRight, 0);
-
-		verticalRotation -= Input.GetAxis ("Mouse Y") * mouseSensitivity; //retrieve vertical mouse movement
-		verticalRotation = Mathf.Clamp(verticalRotation, -upDownRange, upDownRange); //do not let vertical movement beyond range
-
-		Camera.main.transform.localRotation = Quaternion.Euler (verticalRotation, 0, 0); //move the camera (instead of controller) vertically 
+//		//rotation
+//		float rotLeftRight = Input.GetAxis ("Mouse X") * mouseSensitivity; //retrieve lateral mouse movement
+//		transform.Rotate (0, rotLeftRight, 0);
+//
+//		verticalRotation -= Input.GetAxis ("Mouse Y") * mouseSensitivity; //retrieve vertical mouse movement
+//		verticalRotation = Mathf.Clamp(verticalRotation, -upDownRange, upDownRange); //do not let vertical movement beyond range
+//
+//		Camera.main.transform.localRotation = Quaternion.Euler (verticalRotation, 0, 0); //move the camera (instead of controller) vertically 
 
 		//movement
 
