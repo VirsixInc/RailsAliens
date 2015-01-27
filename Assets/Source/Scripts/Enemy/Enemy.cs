@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour {
 	//There are two types of directly harmful enemies - melee and ranged
 	//both of their attacks are trigger DoDamage only when a certain Animation State is reached
 
-	//hitpoints - the number of damage points an enemy can take before it is destroy
+	//hitpoints - the number of damage points an enemy can take before it is destroyed (OnDeath)
 	public int hitpoints;
 
 	//enemyEvents - list of the events that the enemy does which are all based in animation
@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour {
 	
 	//we need to keep track of enemy states - attacking, moving, defending, dying, spawning - but this may be specific to each enemy type
 	
-	public virtual void Attack()
+	public virtual void Attack ()
 	{
 		//must be specific to enemy
 	}
